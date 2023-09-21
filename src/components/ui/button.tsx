@@ -10,7 +10,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         black: "bg-zinc-800 text-zinc-100 hover:bg-zinc-700",
-        sky: "bg-sky-500 text-sky-100 hover:bg-sky-400"
+        sky: "bg-sky-500 text-sky-100 hover:bg-sky-400",
+        link: "text-zinc-100 underline-offset-4 hover:underline",
       },
       size: {
         lg: "h-12 px-6 py-3",
@@ -27,7 +28,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
