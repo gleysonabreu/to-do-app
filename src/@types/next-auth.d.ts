@@ -4,7 +4,7 @@ declare module 'next-auth' {
   export interface User {
     username: string;
     accessToken: string;
-  };
+  }
 
   export interface Session {
     accessToken: string;

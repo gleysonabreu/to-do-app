@@ -1,24 +1,24 @@
-import '../assets/globals.css'
-import type { Metadata } from 'next'
-import SessionProvider from '@/components/SessionProvider'
-import { Inter } from 'next/font/google'
-import { getServerSession } from 'next-auth'
-import { authOptions } from './api/auth/[...nextauth]/route'
+import '../assets/globals.css';
+import type { Metadata } from 'next';
+import SessionProvider from '@/components/SessionProvider';
+import { Inter } from 'next/font/google';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]/route';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'To-do tasks',
   description: 'Create tasks',
   icons: {
-    icon: '/icon.svg'
-  }
-}
+    icon: '/icon.svg',
+  },
+};
 
 export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
 
@@ -28,5 +28,5 @@ export default async function RootLayout({
         <body className={inter.className}>{children}</body>
       </SessionProvider>
     </html>
-  )
+  );
 }
