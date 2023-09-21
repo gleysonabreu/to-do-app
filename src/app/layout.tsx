@@ -8,8 +8,11 @@ import { authOptions } from './api/auth/[...nextauth]/route'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Todo App',
-  description: 'Todo app',
+  title: 'To-do tasks',
+  description: 'Create tasks',
+  icons: {
+    icon: '/icon.svg'
+  }
 }
 
 export default async function RootLayout({
