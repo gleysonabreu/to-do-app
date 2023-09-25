@@ -26,6 +26,7 @@ import {
 import { Loader2 } from 'lucide-react';
 import { toast } from './ui/use-toast';
 import { fetchWithAuth } from '@/lib/fetcher';
+import { revalidateTagHelper } from '@/app/actions';
 
 const schema = z.object({
   title: z.string().min(3).max(20),
@@ -67,6 +68,8 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
           description: 'Congrats! your task has been created!',
           variant: 'success',
         });
+
+        await revalidateTagHelper('todos');
         reset();
         return;
       }
