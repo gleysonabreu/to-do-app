@@ -9,14 +9,15 @@ import { Progress } from '@/components/ui/progress';
 import Link from 'next/link';
 
 type TodoItemProps = {
+  id: string;
   title: string;
   description?: string;
   progress: number;
 };
 
-export function TodoItem({ title, description, progress }: TodoItemProps) {
+export function TodoItem({ title, description, progress, id }: TodoItemProps) {
   return (
-    <Link href="/dashboard/any-id" className="w-72 h-60 group">
+    <Link href={`/dashboard/todos/${id}`} className="w-72 h-60 group">
       <Card className="h-full w-full flex flex-col">
         <CardHeader>
           <CardTitle className="group-hover:text-sky-500 line-clamp-2 transition-colors">

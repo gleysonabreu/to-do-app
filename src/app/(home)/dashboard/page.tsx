@@ -33,6 +33,7 @@ export default async function Dashboard() {
         {todos.reverse().map((todo) => (
           <TodoItem
             key={todo.id}
+            id={todo.id}
             title={todo.title}
             description={todo.description}
             progress={50}
