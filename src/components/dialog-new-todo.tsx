@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -36,6 +36,8 @@ const schema = z.object({
 type FormNewTodoSchemaType = z.infer<typeof schema>;
 
 export function DialogNewTodo({ children }: { children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+
   const formNewTodo = useForm<FormNewTodoSchemaType>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -51,6 +53,11 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
     reset,
     setError,
   } = formNewTodo;
+
+  function openChangeWrapper(value: boolean) {
+    setOpen(value);
+    reset();
+  }
 
   const handleNewTodo: SubmitHandler<FormNewTodoSchemaType> = async (data) => {
     try {
@@ -70,7 +77,7 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
         });
 
         await revalidateTagHelper('todos');
-        reset();
+        openChangeWrapper(false);
         return;
       }
 
@@ -103,7 +110,7 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={openChangeWrapper}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <Form {...formNewTodo}>
