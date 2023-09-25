@@ -24,9 +24,11 @@ import {
   FormMessage,
 } from './ui/form';
 import { Loader2 } from 'lucide-react';
+import { toast } from './ui/use-toast';
+import { fetchWithAuth } from '@/lib/fetcher';
 
 const schema = z.object({
-  title: z.string().min(5),
+  title: z.string().min(3).max(20),
   description: z.string().optional(),
 });
 
@@ -45,10 +47,56 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
     handleSubmit,
     control,
     formState: { isSubmitting },
+    reset,
+    setError,
   } = formNewTodo;
 
   const handleNewTodo: SubmitHandler<FormNewTodoSchemaType> = async (data) => {
-    console.log(data);
+    try {
+      const res = await fetchWithAuth('/todos', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: data.title,
+          description: data.description,
+        }),
+      });
+
+      if (res.status === 201) {
+        toast({
+          title: `${data.title}`,
+          description: 'Congrats! your task has been created!',
+          variant: 'success',
+        });
+        reset();
+        return;
+      }
+
+      if (res.status === 400) {
+        const responseBody = await res.json();
+        responseBody.errors.details.forEach((error: any) => {
+          setError(error.path[0], { message: error.message });
+        });
+
+        return;
+      }
+
+      if (!res.ok) {
+        toast({
+          title: 'Something went wrong!',
+          description: 'Try again!',
+          variant: 'error',
+        });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: 'Connection failed.',
+        description:
+          'Unable to connect to Tasks. Please check your connection.',
+        variant: 'error',
+      });
+    }
   };
 
   return (
