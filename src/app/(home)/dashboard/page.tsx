@@ -3,7 +3,7 @@ import { NewTodo } from '@/components/new-todo';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-type Todo = {
+export type Todo = {
   id: string;
   title: string;
   description?: string;
