@@ -4,7 +4,18 @@ import { useState } from 'react';
 import { Checkbox } from './ui/checkbox';
 import { fetchWithAuth } from '@/lib/fetcher';
 import { useToast } from './ui/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Delete, Loader2, MoreVerticalIcon } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 type Item = {
   id: string;
@@ -92,7 +103,27 @@ export function Item({ isChecked, name, description, id }: Item) {
         </div>
       </div>
 
-      {isLoading && <Loader2 className="animate-spin text-zinc-400" />}
+      <div className="flex gap-2 items-center">
+        {isLoading && <Loader2 className="animate-spin text-zinc-400" />}
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="link" size="icon">
+              <MoreVerticalIcon />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>Task item</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <Delete className="mr-2 h-4 w-4" />
+                <span>Delete</span>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 }
