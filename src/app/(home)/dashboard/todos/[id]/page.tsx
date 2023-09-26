@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import { Todo } from '../../page';
 import type { Metadata } from 'next';
+import { NewTodoItem } from '@/components/new-todo-item';
 
 type Props = {
   params: {
@@ -80,9 +81,11 @@ export default async function Todo({ params: { id } }: Props) {
 
   return (
     <main className="h-full p-6 w-full">
-      <header className="max-w-xl mx-auto text-center">
+      <header className="max-w-xl mx-auto flex flex-col gap-3 items-center text-center">
         <h1 className="text-4xl font-bold">{todo.title}</h1>
         <span className="text-zinc-400 text-sm">{todo.description}</span>
+
+        <NewTodoItem />
       </header>
 
       <div className="max-w-lg mx-auto flex flex-col gap-4 justify-center items-center mt-6">
