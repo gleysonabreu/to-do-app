@@ -36,7 +36,6 @@ export default async function Dashboard() {
             id={todo.id}
             title={todo.title}
             description={todo.description}
-            progress={50}
           />
         ))}
       </div>
