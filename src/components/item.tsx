@@ -16,6 +16,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from './ui/alert-dialog';
+import { revalidateTagHelper } from '@/app/actions';
 
 type Item = {
   id: string;
@@ -26,6 +38,7 @@ type Item = {
 
 export function Item({ isChecked, name, description, id }: Item) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [checked, setChecked] = useState(isChecked);
   const { toast } = useToast();
 
@@ -66,6 +79,43 @@ export function Item({ isChecked, name, description, id }: Item) {
       });
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  async function handleDeleteTaskItem() {
+    try {
+      setIsLoadingDelete(true);
+      const res = await fetchWithAuth(`/items/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (res.status === 204) {
+        toast({
+          title: `${name} deleted.`,
+          variant: 'success',
+        });
+
+        await revalidateTagHelper('items');
+        setIsLoadingDelete(false);
+        return;
+      }
+
+      toast({
+        title: 'Something went wrong',
+        description: 'Try again later.',
+        variant: 'error',
+      });
+      setIsLoadingDelete(false);
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: 'Connection failed.',
+        description:
+          'Unable to connect to Tasks. Please check your connection.',
+        variant: 'error',
+      });
+    } finally {
+      setIsLoadingDelete(false);
     }
   }
 
@@ -116,10 +166,36 @@ export function Item({ isChecked, name, description, id }: Item) {
             <DropdownMenuLabel>Task item</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Delete className="mr-2 h-4 w-4" />
-                <span>Delete</span>
-              </DropdownMenuItem>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                    <Delete className="mr-2 h-4 w-4" />
+                    <span>Delete</span>
+                  </DropdownMenuItem>
+                </AlertDialogTrigger>
+
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your task item from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDeleteTaskItem}>
+                      {isLoadingDelete ? (
+                        <Loader2 className="animate-spin" />
+                      ) : (
+                        'Continue'
+                      )}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

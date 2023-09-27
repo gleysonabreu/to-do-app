@@ -10,6 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         black: 'bg-zinc-800 text-zinc-100 hover:bg-zinc-700',
+        red: 'bg-red-800 text-red-100 hover:bg-red-700',
         sky: 'bg-sky-500 text-sky-100 hover:bg-sky-400',
         link: 'text-zinc-100 underline-offset-4 hover:underline',
       },
