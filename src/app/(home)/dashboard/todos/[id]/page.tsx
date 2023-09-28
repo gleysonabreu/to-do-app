@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Todo } from '../../page';
 import type { Metadata } from 'next';
 import { NewTodoItem } from '@/components/new-todo-item';
+import { RemoveTodo } from '@/components/remove-to-do';
 
 type Props = {
   params: {
@@ -84,6 +85,7 @@ export default async function Todo({ params: { id } }: Props) {
       <header className="max-w-xl mx-auto flex flex-col gap-3 items-center text-center">
         <h1 className="text-4xl font-bold">{todo.title}</h1>
         <span className="text-zinc-400 text-sm">{todo.description}</span>
+        <RemoveTodo id={id} />
 
         <NewTodoItem />
       </header>
