@@ -124,11 +124,9 @@ export function DialogNewTodoItem() {
   return (
     <Dialog open={open} onOpenChange={openChangeWrapper}>
       <DialogTrigger asChild>
-        <Button type="button" variant="link">
-          <Plus
-            size={70}
-            className="text-green-500 hover:text-green-600 transition-colors"
-          />
+        <Button type="button" size="sm" className="group">
+          Add new item
+          <Plus className="text-green-500 group-hover:text-green-600 transition-colors" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

@@ -69,7 +69,9 @@ export function RemoveTodo({ id }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="red">Remove to-do</Button>
+        <Button variant="red" size="sm">
+          Remove to-do
+        </Button>
       </AlertDialogTrigger>
 
       <AlertDialogContent>

@@ -4,8 +4,8 @@ import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import { Todo } from '../../page';
 import type { Metadata } from 'next';
-import { NewTodoItem } from '@/components/new-todo-item';
 import { RemoveTodo } from '@/components/remove-to-do';
+import { DialogNewTodoItem } from '@/components/dialog-new-todo-item';
 
 type Props = {
   params: {
@@ -82,13 +82,19 @@ export default async function Todo({ params: { id } }: Props) {
 
   return (
     <main className="h-full p-6 w-full">
-      <header className="max-w-xl mx-auto flex flex-col gap-3 items-center text-center">
-        <h1 className="text-4xl font-bold">{todo.title}</h1>
-        <span className="text-zinc-400 text-sm">{todo.description}</span>
-        <RemoveTodo id={id} />
+      <div className="flex flex-col md:flex-row lg:items-center lg:justify-between max-w-5xl mx-auto">
+        <div className="min-w-0 flex-1">
+          <h2 className="text-2xl font-bold leading-7 capitalize text-zinc-100 sm:truncate sm:text-3xl sm:tracking-tight">
+            {todo.title}
+          </h2>
 
-        <NewTodoItem />
-      </header>
+          <span className="text-zinc-500">{todo.description}</span>
+        </div>
+        <div className="mt-5 flex gap-2 lg:ml-4 lg:mt-0 flex-col md:flex-row">
+          <RemoveTodo id={id} />
+          <DialogNewTodoItem />
+        </div>
+      </div>
 
       <div className="max-w-lg mx-auto flex flex-col gap-4 justify-center items-center mt-6">
         {todoItems.length <= 0 ? (
