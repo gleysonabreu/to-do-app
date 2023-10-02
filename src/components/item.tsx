@@ -58,11 +58,11 @@ export function Item({ isChecked, name, description, id }: Item) {
           variant: 'success',
         });
 
+        await revalidateTagHelper('items');
         setIsLoading(false);
         return;
       }
 
-      console.log(res);
       toast({
         title: 'Something went wrong',
         description: 'Try again later.',
