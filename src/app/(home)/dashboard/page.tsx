@@ -7,6 +7,8 @@ export type Todo = {
   id: string;
   title: string;
   description?: string;
+  amount: number;
+  completed: number;
 };
 
 export default async function Dashboard() {
@@ -36,7 +38,8 @@ export default async function Dashboard() {
             id={todo.id}
             title={todo.title}
             description={todo.description}
-            progress={50}
+            amount={todo.amount}
+            completed={todo.completed}
           />
         ))}
       </div>

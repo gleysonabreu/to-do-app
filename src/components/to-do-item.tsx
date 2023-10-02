@@ -12,10 +12,19 @@ type TodoItemProps = {
   id: string;
   title: string;
   description?: string;
-  progress: number;
+  amount: number;
+  completed: number;
 };
 
-export function TodoItem({ title, description, progress, id }: TodoItemProps) {
+export function TodoItem({
+  title,
+  description,
+  amount,
+  completed,
+  id,
+}: TodoItemProps) {
+  const progress = amount > 0 ? Math.round((completed / amount) * 100) : 0;
+
   return (
     <Link href={`/dashboard/todos/${id}`} className="w-72 h-60 group">
       <Card className="h-full w-full flex flex-col">
