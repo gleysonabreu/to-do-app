@@ -2,23 +2,23 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { ArrowRight, Menu } from 'lucide-react';
+import { ArrowRight, Menu, Plus } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { usePathname } from 'next/navigation';
+import { DialogNewTodo } from './dialog-new-todo';
 
 export function Header() {
   const { data: session } = useSession();
 
+  const pathname = usePathname();
   return (
     <header className="bg-zinc-900 w-full h-16 relative lg:h-20">
       <div className="h-full relative">
@@ -72,6 +72,15 @@ export function Header() {
                       </div>
 
                       <div className="flex flex-col pl-6 space-y-3 mt-6">
+                        <DialogNewTodo>
+                          <Button size="sm" variant="sky" asChild>
+                            <Link href="/dashboard">
+                              To-do
+                              <Plus size={20} className="text-zinc-100" />
+                            </Link>
+                          </Button>
+                        </DialogNewTodo>
+
                         <Button
                           type="button"
                           onClick={() => signOut()}
@@ -91,12 +100,23 @@ export function Header() {
                     {session.user.name?.slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
-                <Button size="sm" asChild>
-                  <Link href="/dashboard">
-                    Dashboard
-                    <ArrowRight size={20} className="text-sky-400" />
-                  </Link>
-                </Button>
+                {pathname === '/' ? (
+                  <Button size="sm" asChild>
+                    <Link href="/dashboard">
+                      Dashboard
+                      <ArrowRight size={20} className="text-sky-400" />
+                    </Link>
+                  </Button>
+                ) : (
+                  <DialogNewTodo>
+                    <Button size="sm" variant="sky" asChild>
+                      <Link href="/dashboard">
+                        To-do
+                        <Plus size={20} className="text-zinc-100" />
+                      </Link>
+                    </Button>
+                  </DialogNewTodo>
+                )}
                 <Button
                   onClick={() => signOut()}
                   size="sm"

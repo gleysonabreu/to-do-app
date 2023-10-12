@@ -1,5 +1,4 @@
 import { TodoItem } from '@/components/to-do-item';
-import { NewTodo } from '@/components/new-todo';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
@@ -30,8 +29,6 @@ export default async function Dashboard() {
   return (
     <main className="h-full p-6 w-full">
       <div className="grid justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <NewTodo />
-
         {todos.reverse().map((todo) => (
           <TodoItem
             key={todo.id}
