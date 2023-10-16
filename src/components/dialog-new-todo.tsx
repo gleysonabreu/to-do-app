@@ -132,7 +132,7 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
                         id="title"
                         type="text"
                         placeholder="Example: my day"
-                        className="col-span-3"
+                        className="col-span-3 border-zinc-200 border"
                         {...field}
                       />
                     </FormControl>
@@ -154,7 +154,7 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
                         id="description"
                         type="text"
                         placeholder="this is my list..."
-                        className="col-span-3"
+                        className="col-span-3 border-zinc-200 border"
                         {...field}
                       />
                     </FormControl>

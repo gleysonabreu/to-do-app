@@ -84,11 +84,13 @@ export default async function Todo({ params: { id } }: Props) {
     <main className="h-full p-6 w-full">
       <div className="flex flex-col md:flex-row lg:items-center lg:justify-between max-w-5xl mx-auto">
         <div className="min-w-0 flex-1">
-          <h2 className="text-2xl font-bold leading-7 capitalize text-zinc-100 sm:truncate sm:text-3xl sm:tracking-tight">
+          <h2 className="text-2xl font-bold leading-7 capitalize text-zinc-800 dark:text-zinc-100 sm:truncate sm:text-3xl sm:tracking-tight">
             {todo.title}
           </h2>
 
-          <span className="text-zinc-500">{todo.description}</span>
+          <span className="dark:text-zinc-500 text-zinc-400">
+            {todo.description}
+          </span>
         </div>
         <div className="mt-5 flex gap-2 lg:ml-4 lg:mt-0 flex-col md:flex-row">
           <RemoveTodo id={id} />

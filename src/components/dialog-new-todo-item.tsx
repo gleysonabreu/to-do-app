@@ -150,7 +150,7 @@ export function DialogNewTodoItem() {
                         id="name"
                         type="text"
                         placeholder="Example: my day"
-                        className="col-span-3"
+                        className="col-span-3 border-zinc-200 border"
                         {...field}
                       />
                     </FormControl>
@@ -172,7 +172,7 @@ export function DialogNewTodoItem() {
                         id="description"
                         type="text"
                         placeholder="this is my item..."
-                        className="col-span-3"
+                        className="col-span-3 border-zinc-200 border"
                         {...field}
                       />
                     </FormControl>

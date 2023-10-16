@@ -122,7 +122,7 @@ export function Item({ isChecked, name, description, id }: Item) {
   return (
     <div
       data-checked={checked}
-      className="w-full flex gap-3 justify-between items-center p-4  border rounded-lg bg-zinc-900 border-zinc-800 data-[checked=true]:bg-zinc-950 data-[checked=true]border-zinc-900"
+      className="w-full flex gap-3 justify-between items-center p-4  border rounded-lg bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 data-[checked=true]:bg-zinc-300 dark:data-[checked=true]:bg-zinc-950 dark:data-[checked=true]:border-zinc-900 data-[checked=true]:border-zinc-400"
     >
       <div className="flex items-center gap-3">
         <Checkbox
@@ -138,14 +138,14 @@ export function Item({ isChecked, name, description, id }: Item) {
           <label
             data-checked={checked}
             htmlFor={id}
-            className="data-[checked=true]:line-through data-[checked=true]:text-zinc-400 text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="data-[checked=true]:line-through data-[checked=true]:text-zinc-500 dark:data-[checked=true]:text-zinc-400 text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             {name}
           </label>
           {description && (
             <span
               data-checked={checked}
-              className="text-zinc-400 text-sm data-[checked=true]:line-through"
+              className="text-zinc-500 dark:text-zinc-400 text-sm data-[checked=true]:line-through"
             >
               {description}
             </span>
@@ -159,7 +159,7 @@ export function Item({ isChecked, name, description, id }: Item) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="link" size="icon">
-              <MoreVerticalIcon />
+              <MoreVerticalIcon className="text-zinc-500" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">

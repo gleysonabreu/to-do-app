@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]/route';
 import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,12 +26,19 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <SessionProvider session={session}>
-        <body className={inter.className}>
-          {children}
-          <Toaster />
-        </body>
-      </SessionProvider>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SessionProvider session={session}>
+            {children}
+            <Toaster />
+          </SessionProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

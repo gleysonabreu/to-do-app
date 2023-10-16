@@ -20,10 +20,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import Image from 'next/image';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { Logo } from '@/components/logo';
 
 const formSignInSchema = z.object({
   email: z.string().email(),
@@ -107,7 +107,7 @@ export default function SignIn({ searchParams }: SignInParams) {
         className="flex p-3 gap-10 flex-col items-center justify-center h-screen"
       >
         <Link href="/">
-          <Image src="/logo.svg" alt="Logo" width={121} height={43} />
+          <Logo />
         </Link>
         <Card className="w-full max-w-lg">
           {error && (

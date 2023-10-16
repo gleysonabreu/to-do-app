@@ -19,12 +19,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import Image from 'next/image';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { fetchWithAuth } from '@/lib/fetcher';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Logo } from '@/components/logo';
 
 const formSignUpSchema = z.object({
   email: z.string().email(),
@@ -156,7 +156,7 @@ export default function SignUp() {
         className="flex p-3 gap-10 flex-col items-center justify-center h-screen"
       >
         <Link href="/">
-          <Image src="/logo.svg" alt="Logo" width={121} height={43} />
+          <Logo />
         </Link>
         <Card className="w-full max-w-lg">
           <CardHeader>

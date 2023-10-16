@@ -14,13 +14,13 @@ export default function Loading() {
           <div className="w-72 h-60" key={item}>
             <Card className="h-full w-full flex flex-col ">
               <CardHeader>
-                <CardTitle className="w-full h-3 rounded-md p-2 bg-zinc-800 animate-pulse" />
-                <CardDescription className="w-1/2 h-6 rounded-md p-2 bg-zinc-800 animate-pulse" />
+                <CardTitle className="w-full h-3 rounded-md p-2 bg-white dark:bg-zinc-800 animate-pulse" />
+                <CardDescription className="w-1/2 h-6 rounded-md p-2 bg-white dark:bg-zinc-800 animate-pulse" />
               </CardHeader>
 
               <CardContent className="flex flex-1 flex-col justify-end">
                 <div className="flex flex-col gap-2">
-                  <div className="w-full h-3 rounded-md p-2 bg-zinc-800 animate-pulse" />
+                  <div className="w-full h-3 rounded-md p-2 bg-white dark:bg-zinc-800 animate-pulse" />
                 </div>
               </CardContent>
             </Card>
