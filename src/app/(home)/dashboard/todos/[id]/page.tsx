@@ -84,7 +84,7 @@ export default async function Todo({ params: { id } }: Props) {
   const todoItems = await getTodoItems(id);
 
   return (
-    <main className="h-full p-6 w-full">
+    <main className="flex-1 p-6 w-full">
       <div className="flex flex-col md:flex-row lg:items-center lg:justify-between max-w-5xl mx-auto">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">

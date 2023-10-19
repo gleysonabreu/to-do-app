@@ -71,6 +71,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-white text-zinc-800 dark:bg-[#121212] dark:text-zinc-100;
+    @apply min-h-screen bg-white text-zinc-800 dark:bg-[#121212] dark:text-zinc-100;
   }
 }

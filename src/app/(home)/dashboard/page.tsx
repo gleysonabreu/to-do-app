@@ -27,7 +27,7 @@ export default async function Dashboard() {
   const todos = responseBody.todos as Todo[];
 
   return (
-    <main className="h-full p-6 w-full">
+    <main className="flex-1 p-6 w-full">
       <div className="grid justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {todos.reverse().map((todo) => (
           <TodoItem
