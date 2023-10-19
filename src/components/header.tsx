@@ -2,8 +2,7 @@
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { ArrowRight, Menu, Plus } from 'lucide-react';
-import { signOut, useSession } from 'next-auth/react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useSession } from 'next-auth/react';
 import {
   Sheet,
   SheetContent,
@@ -15,6 +14,7 @@ import { usePathname } from 'next/navigation';
 import { DialogNewTodo } from './dialog-new-todo';
 import { ToggleTheme } from './toggle-theme';
 import { Logo } from './logo';
+import { UserNav } from './user-nav';
 
 export function Header() {
   const { data: session } = useSession();
@@ -28,7 +28,7 @@ export function Header() {
             <Logo />
           </Link>
 
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-1">
             {session ? (
               <>
                 <Sheet>
@@ -58,16 +58,6 @@ export function Header() {
                       </div>
 
                       <div className="border-t pt-4 border-zinc-200 dark:border-zinc-800">
-                        <div className="flex items-center gap-2">
-                          <Avatar>
-                            <AvatarImage src={session.user.image as string} />
-                            <AvatarFallback className="uppercase">
-                              {session.user.name?.slice(0, 2)}
-                            </AvatarFallback>
-                          </Avatar>
-                          <h1 className="truncate">{session.user.name}</h1>
-                        </div>
-
                         <div className="flex flex-col pl-6 space-y-3 mt-6">
                           <DialogNewTodo>
                             <Button size="sm" variant="sky">
@@ -75,28 +65,15 @@ export function Header() {
                               <Plus size={20} className="text-zinc-100" />
                             </Button>
                           </DialogNewTodo>
-
-                          <Button
-                            type="button"
-                            onClick={() => signOut()}
-                            size="sm"
-                          >
-                            Sign out
-                          </Button>
                         </div>
                       </div>
                     </div>
                   </SheetContent>
                 </Sheet>
-                <div className="items-center gap-4 hidden md:flex">
-                  <Avatar>
-                    <AvatarImage src={session.user.image as string} />
-                    <AvatarFallback className="uppercase">
-                      {session.user.name?.slice(0, 2)}
-                    </AvatarFallback>
-                  </Avatar>
+                <div className="items-center gap-2 flex">
+                  <UserNav />
                   {pathname === '/' ? (
-                    <Button size="sm" asChild>
+                    <Button size="sm" asChild className="hidden md:flex">
                       <Link href="/dashboard">
                         Dashboard
                         <ArrowRight size={20} className="text-sky-400" />
@@ -104,20 +81,16 @@ export function Header() {
                     </Button>
                   ) : (
                     <DialogNewTodo>
-                      <Button size="sm" variant="sky">
+                      <Button
+                        size="sm"
+                        variant="sky"
+                        className="hidden md:flex"
+                      >
                         To-do
                         <Plus size={20} className="text-zinc-100" />
                       </Button>
                     </DialogNewTodo>
                   )}
-                  <Button
-                    onClick={() => signOut()}
-                    size="sm"
-                    variant="link"
-                    className="p-0"
-                  >
-                    Sign out
-                  </Button>
                 </div>
               </>
             ) : (
