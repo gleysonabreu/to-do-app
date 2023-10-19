@@ -1,11 +1,14 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { Item } from '@/components/item';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import { Todo } from '../../page';
 import type { Metadata } from 'next';
 import { RemoveTodo } from '@/components/remove-to-do';
 import { DialogNewTodoItem } from '@/components/dialog-new-todo-item';
+import { DataTable } from '@/components/table/data-table';
+import { columns } from '@/components/table/columns';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 type Props = {
   params: {
@@ -84,9 +87,14 @@ export default async function Todo({ params: { id } }: Props) {
     <main className="h-full p-6 w-full">
       <div className="flex flex-col md:flex-row lg:items-center lg:justify-between max-w-5xl mx-auto">
         <div className="min-w-0 flex-1">
-          <h2 className="text-2xl font-bold leading-7 capitalize text-zinc-800 dark:text-zinc-100 sm:truncate sm:text-3xl sm:tracking-tight">
-            {todo.title}
-          </h2>
+          <div className="flex items-center gap-2">
+            <Link href="/dashboard">
+              <ArrowLeft size={25} />
+            </Link>
+            <h2 className="text-2xl font-bold leading-7 capitalize text-zinc-800 dark:text-zinc-100 sm:truncate sm:text-3xl sm:tracking-tight">
+              {todo.title}
+            </h2>
+          </div>
 
           <span className="dark:text-zinc-500 text-zinc-400">
             {todo.description}
@@ -98,22 +106,8 @@ export default async function Todo({ params: { id } }: Props) {
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto flex flex-col gap-4 justify-center items-center mt-6">
-        {todoItems.length <= 0 ? (
-          <div>
-            <h1 className="text-zinc-400 font-bold">List not founded</h1>
-          </div>
-        ) : (
-          todoItems.map((item) => (
-            <Item
-              key={item.id}
-              id={item.id}
-              isChecked={item.check}
-              name={item.name}
-              description={item.description}
-            />
-          ))
-        )}
+      <div className="max-w-5xl mx-auto flex flex-col gap-4 justify-center items-center mt-6">
+        <DataTable columns={columns} data={todoItems} />
       </div>
     </main>
   );

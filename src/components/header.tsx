@@ -21,7 +21,7 @@ export function Header() {
 
   const pathname = usePathname();
   return (
-    <header className="bg-white dark:bg-zinc-900 w-full h-16 relative lg:h-20">
+    <header className="bg-white border-b dark:bg-zinc-900 w-full h-16 relative lg:h-20">
       <div className="h-full relative">
         <div className="mx-8 lg:mx-20 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center h-full w-28">
