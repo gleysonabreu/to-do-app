@@ -21,7 +21,7 @@ export function Header() {
 
   const pathname = usePathname();
   return (
-    <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b w-full h-16 relative lg:h-20">
+    <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b w-full h-16 sticky top-0 z-50 lg:h-20">
       <div className="h-full relative">
         <div className="mx-8 lg:mx-20 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center h-full w-28">
