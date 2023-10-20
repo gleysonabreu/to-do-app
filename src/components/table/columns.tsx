@@ -31,7 +31,7 @@ export const columns: ColumnDef<TodoItem>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="link"
+          variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Name

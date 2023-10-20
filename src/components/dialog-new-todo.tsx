@@ -132,7 +132,7 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
                         id="title"
                         type="text"
                         placeholder="Example: my day"
-                        className="col-span-3 border-zinc-200 border"
+                        className="col-span-3"
                         {...field}
                       />
                     </FormControl>
@@ -154,7 +154,7 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
                         id="description"
                         type="text"
                         placeholder="this is my list..."
-                        className="col-span-3 border-zinc-200 border"
+                        className="col-span-3"
                         {...field}
                       />
                     </FormControl>
@@ -164,7 +164,7 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
               />
             </div>
             <DialogFooter>
-              <Button variant="sky" type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? <Loader2 className="animate-spin" /> : 'Create'}
               </Button>
             </DialogFooter>

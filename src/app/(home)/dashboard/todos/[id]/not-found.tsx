@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <main className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
       <div className="text-center">
-        <p className="text-base font-semibold text-sky-600">404</p>
+        <p className="text-base font-semibold text-primary">404</p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-5xl">
           Page not found
         </h1>
@@ -13,7 +13,7 @@ export default function NotFound() {
           Sorry, we couldn`t find the page you`re looking for.
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
-          <Button asChild variant="sky">
+          <Button asChild>
             <Link href="/dashboard">Go dashboard page</Link>
           </Button>
         </div>

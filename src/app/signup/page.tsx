@@ -262,10 +262,10 @@ export default function SignUp() {
           </CardContent>
 
           <CardFooter className="flex justify-between">
-            <Button type="button" onClick={() => reset()}>
+            <Button variant="ghost" type="button" onClick={() => reset()}>
               Cancel
             </Button>
-            <Button variant="sky" type="submit" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? <Loader2 className="animate-spin" /> : 'Create'}
             </Button>
           </CardFooter>

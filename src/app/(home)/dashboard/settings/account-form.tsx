@@ -97,9 +97,7 @@ export function AccountForm() {
           )}
         />
 
-        <Button type="submit" variant="sky">
-          Update account
-        </Button>
+        <Button type="submit">Update account</Button>
       </form>
     </Form>
   );

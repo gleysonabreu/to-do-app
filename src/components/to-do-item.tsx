@@ -29,7 +29,7 @@ export function TodoItem({
     <Link href={`/dashboard/todos/${id}`} className="w-72 h-60 group">
       <Card className="h-full w-full flex flex-col">
         <CardHeader>
-          <CardTitle className="group-hover:text-sky-500 line-clamp-2 transition-colors">
+          <CardTitle className="group-hover:text-primary line-clamp-2 transition-colors">
             {title}
           </CardTitle>
           <CardDescription className="line-clamp-3">

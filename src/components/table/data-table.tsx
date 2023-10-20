@@ -49,7 +49,6 @@ export function DataTable<TValue>({ columns, data }: DataTableProps<TValue>) {
       data.reduce(
         (acc, _, index) => {
           acc[index] = data[index] ? data[index]?.check : false;
-          console.log(acc);
           return acc;
         },
         {} as Record<number, boolean>,
@@ -85,11 +84,11 @@ export function DataTable<TValue>({ columns, data }: DataTableProps<TValue>) {
           onChange={(event) =>
             table.getColumn('name')?.setFilterValue(event.target.value)
           }
-          className="max-w-sm border-zinc-200 dark:border-zinc-700 border"
+          className="max-w-sm"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="link" className="ml-auto">
+            <Button variant="ghost" className="ml-auto">
               View <Settings2 className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -175,7 +174,7 @@ export function DataTable<TValue>({ columns, data }: DataTableProps<TValue>) {
         </div>
         <div className="space-x-2">
           <Button
-            variant="link"
+            variant="outline"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -183,7 +182,7 @@ export function DataTable<TValue>({ columns, data }: DataTableProps<TValue>) {
             Previous
           </Button>
           <Button
-            variant="link"
+            variant="outline"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}

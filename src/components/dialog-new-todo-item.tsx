@@ -126,7 +126,7 @@ export function DialogNewTodoItem() {
       <DialogTrigger asChild>
         <Button type="button" size="sm" className="group">
           Add new item
-          <Plus className="text-green-500 group-hover:text-green-600 transition-colors" />
+          <Plus size={16} />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -150,7 +150,7 @@ export function DialogNewTodoItem() {
                         id="name"
                         type="text"
                         placeholder="Example: my day"
-                        className="col-span-3 border-zinc-200 border"
+                        className="col-span-3"
                         {...field}
                       />
                     </FormControl>
@@ -172,7 +172,7 @@ export function DialogNewTodoItem() {
                         id="description"
                         type="text"
                         placeholder="this is my item..."
-                        className="col-span-3 border-zinc-200 border"
+                        className="col-span-3"
                         {...field}
                       />
                     </FormControl>
@@ -182,7 +182,7 @@ export function DialogNewTodoItem() {
               />
             </div>
             <DialogFooter>
-              <Button variant="sky" type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? <Loader2 className="animate-spin" /> : 'Create'}
               </Button>
             </DialogFooter>

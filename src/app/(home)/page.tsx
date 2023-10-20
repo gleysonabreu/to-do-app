@@ -16,7 +16,7 @@ export default async function Home() {
                 your life and improving your productivity, Task offers an
                 effective approach to keeping track of your daily tasks.
               </span>
-              <Button variant="sky" className="group" asChild>
+              <Button size="lg" className="group" asChild>
                 <Link href="/signup">Sign up</Link>
               </Button>
             </div>

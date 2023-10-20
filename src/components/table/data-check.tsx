@@ -28,7 +28,9 @@ export function DataCheck({ row }: DataCheckedProps) {
 
       if (res.status === 204) {
         toast({
-          title: `${name} ${todoItem.check ? 'unchecked' : 'checked'}`,
+          title: `${row.original.name} ${
+            todoItem.check ? 'unchecked' : 'checked'
+          }`,
           variant: 'success',
         });
 

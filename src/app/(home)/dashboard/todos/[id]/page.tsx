@@ -91,7 +91,7 @@ export default async function Todo({ params: { id } }: Props) {
             <Link href="/dashboard">
               <ArrowLeft size={25} />
             </Link>
-            <h2 className="text-2xl font-bold leading-7 capitalize text-zinc-800 dark:text-zinc-100 sm:truncate sm:text-3xl sm:tracking-tight">
+            <h2 className="text-2xl font-bold leading-7 capitalize sm:truncate sm:text-3xl sm:tracking-tight">
               {todo.title}
             </h2>
           </div>

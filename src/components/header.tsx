@@ -21,7 +21,7 @@ export function Header() {
 
   const pathname = usePathname();
   return (
-    <header className="bg-white border-b dark:bg-zinc-900 w-full h-16 relative lg:h-20">
+    <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b w-full h-16 relative lg:h-20">
       <div className="h-full relative">
         <div className="mx-8 lg:mx-20 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center h-full w-28">
@@ -57,12 +57,12 @@ export function Header() {
                         </Link>
                       </div>
 
-                      <div className="border-t pt-4 border-zinc-200 dark:border-zinc-800">
+                      <div className="border-t pt-4 border-border">
                         <div className="flex flex-col pl-6 space-y-3 mt-6">
                           <DialogNewTodo>
-                            <Button size="sm" variant="sky">
+                            <Button size="sm">
                               To-do
-                              <Plus size={20} className="text-zinc-100" />
+                              <Plus size={16} />
                             </Button>
                           </DialogNewTodo>
                         </div>
@@ -73,31 +73,27 @@ export function Header() {
                 <div className="items-center gap-2 flex">
                   <UserNav />
                   {pathname === '/' ? (
-                    <Button size="sm" asChild className="hidden md:flex">
+                    <Button asChild className="hidden md:flex">
                       <Link href="/dashboard">
                         Dashboard
-                        <ArrowRight size={20} className="text-sky-400" />
+                        <ArrowRight size={16} />
                       </Link>
                     </Button>
                   ) : (
                     <DialogNewTodo>
-                      <Button
-                        size="sm"
-                        variant="sky"
-                        className="hidden md:flex"
-                      >
+                      <Button className="hidden md:flex">
                         To-do
-                        <Plus size={20} className="text-zinc-100" />
+                        <Plus size={16} />
                       </Button>
                     </DialogNewTodo>
                   )}
                 </div>
               </>
             ) : (
-              <Button size="lg" className="group" asChild>
+              <Button className="group" asChild>
                 <Link href="/signin">
                   Sign In
-                  <ArrowRight size={20} className="text-sky-400" />
+                  <ArrowRight size={16} />
                 </Link>
               </Button>
             )}

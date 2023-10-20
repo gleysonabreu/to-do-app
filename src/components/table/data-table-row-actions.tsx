@@ -79,8 +79,8 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="link" size="icon">
-          <MoreHorizontal className="text-zinc-500" />
+        <Button variant="ghost" size="icon">
+          <MoreHorizontal />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
