@@ -17,6 +17,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
+import { User } from './page';
+import { Loader2 } from 'lucide-react';
+import { fetchWithAuth } from '@/lib/fetcher';
+import { useSession } from 'next-auth/react';
+import { revalidateTagHelper } from '@/app/actions';
 
 const accountFormSchema = z.object({
   firstName: z
@@ -35,34 +40,100 @@ const accountFormSchema = z.object({
     .max(30, {
       message: 'First name must not be longer than 30 characters.',
     }),
+  email: z.string().email(),
 });
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;
 
-const defaultValues: Partial<AccountFormValues> = {};
+type AccountFormProps = {
+  user: Partial<User>;
+};
 
-export function AccountForm() {
-  const form = useForm<AccountFormValues>({
+export function AccountForm({ user }: AccountFormProps) {
+  const { data: session, update } = useSession();
+  const defaultValues: Partial<AccountFormValues> = {
+    ...user,
+  };
+
+  const formUpdateAccount = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues,
   });
 
-  function onSubmit(data: AccountFormValues) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+    setError,
+  } = formUpdateAccount;
+
+  async function handleUpdateData(data: AccountFormValues) {
+    try {
+      const res = await fetchWithAuth('/users', {
+        method: 'PUT',
+        body: JSON.stringify({
+          ...data,
+        }),
+      });
+
+      if (res.status === 204) {
+        toast({
+          title: 'Account updated!',
+          description: 'You have just updated your account details.',
+          variant: 'success',
+        });
+
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            name: `${data.firstName} ${data.lastName}`,
+            email: data.email,
+          },
+        });
+        await revalidateTagHelper('account');
+        return;
+      }
+
+      if (res.status === 409) {
+        const responseBody = await res.json();
+        setError('email', {
+          message: responseBody.message,
+          type: 'server',
+        });
+        return;
+      }
+
+      if (res.status === 400) {
+        const responseBody = await res.json();
+
+        responseBody.errors.details.forEach((error: any) => {
+          setError(error.path[0], { message: error.message });
+        });
+        return;
+      }
+
+      toast({
+        title: 'Something went wrong!',
+        description: 'Try again!',
+        variant: 'error',
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: 'Connection failed.',
+        description:
+          'Unable to connect to Tasks. Please check your connection.',
+        variant: 'error',
+      });
+    }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <Form {...formUpdateAccount}>
+      <form onSubmit={handleSubmit(handleUpdateData)} className="space-y-8">
         <FormField
-          control={form.control}
+          control={control}
           name="firstName"
           render={({ field }) => (
             <FormItem>
@@ -80,7 +151,7 @@ export function AccountForm() {
         />
 
         <FormField
-          control={form.control}
+          control={control}
           name="lastName"
           render={({ field }) => (
             <FormItem>
@@ -97,7 +168,31 @@ export function AccountForm() {
           )}
         />
 
-        <Button type="submit">Update account</Button>
+        <FormField
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="Email" {...field} />
+              </FormControl>
+              <FormDescription>
+                This is the email that will be displayed on your profile and in
+                emails.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button disabled={isSubmitting} type="submit">
+          {isSubmitting ? (
+            <Loader2 size={20} className="animate-spin" />
+          ) : (
+            'Update Account'
+          )}
+        </Button>
       </form>
     </Form>
   );
