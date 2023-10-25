@@ -9,6 +9,7 @@ export type User = {
   lastName: string;
   email: string;
   username: string;
+  isPublic: boolean;
 };
 
 async function getMeData() {
@@ -36,6 +37,7 @@ async function getMeData() {
     lastName: responseBody.user.last_name,
     email: responseBody.user.email,
     username: responseBody.user.username,
+    isPublic: responseBody.user.isPublic,
   } as User;
 }
 
