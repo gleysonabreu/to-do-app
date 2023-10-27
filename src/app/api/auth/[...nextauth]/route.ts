@@ -1,3 +1,4 @@
+import { api } from '@/config/api';
 import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -18,7 +19,7 @@ export const authOptions: AuthOptions = {
         },
       },
       authorize: async (credentials) => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth`, {
+        const res = await api('/auth', {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: {
@@ -28,16 +29,13 @@ export const authOptions: AuthOptions = {
 
         const { access_token } = await res.json();
 
-        const resGetUser = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/me`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${access_token}`,
-            },
+        const resGetUser = await api('/me', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${access_token}`,
           },
-        );
+        });
 
         const { user } = await resGetUser.json();
 

@@ -24,10 +24,10 @@ import {
   FormMessage,
 } from './ui/form';
 import { Loader2, Plus } from 'lucide-react';
-import { fetchWithAuth } from '@/lib/fetcher';
 import { revalidateTagHelper } from '@/app/actions';
 import { useToast } from './ui/use-toast';
 import { usePathname } from 'next/navigation';
+import { api } from '@/config/api';
 
 const schema = z.object({
   name: z.string().min(3).max(20),
@@ -68,12 +68,15 @@ export function DialogNewTodoItem() {
     data,
   ) => {
     try {
-      const res = await fetchWithAuth(`/todos/${id}/items`, {
+      const res = await api(`/todos/${id}/items`, {
         method: 'POST',
         body: JSON.stringify({
           name: data.name,
           description: data.description,
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (res.status === 201) {

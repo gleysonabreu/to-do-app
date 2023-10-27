@@ -1,11 +1,11 @@
 'use client';
 import { Checkbox } from '../ui/checkbox';
 import { Row } from '@tanstack/react-table';
-import { TodoItem } from '@/app/(home)/dashboard/todos/[id]/page';
 import { useState } from 'react';
-import { fetchWithAuth } from '@/lib/fetcher';
 import { useToast } from '../ui/use-toast';
 import { revalidateTagHelper } from '@/app/actions';
+import { TodoItem } from '@/types/todo-item';
+import { api } from '@/config/api';
 
 interface DataCheckedProps {
   row: Row<TodoItem>;
@@ -19,7 +19,7 @@ export function DataCheck({ row }: DataCheckedProps) {
   async function handleCheck() {
     try {
       setIsLoading(true);
-      const res = await fetchWithAuth(
+      const res = await api(
         `/items/${todoItem.id}/${todoItem.check ? 'undone' : 'done'}`,
         {
           method: 'PATCH',

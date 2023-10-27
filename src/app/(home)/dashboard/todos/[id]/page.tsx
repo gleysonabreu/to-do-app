@@ -1,7 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
-import { Todo } from '../../page';
 import type { Metadata } from 'next';
 import { RemoveTodo } from '@/components/remove-to-do';
 import { DialogNewTodoItem } from '@/components/dialog-new-todo-item';
@@ -9,18 +6,14 @@ import { DataTable } from '@/components/table/data-table';
 import { columns } from '@/components/table/columns';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { TodoItem } from '@/types/todo-item';
+import { Todo } from '@/types/todo';
+import { api } from '@/config/api';
 
 type Props = {
   params: {
     id: string;
   };
-};
-
-export type TodoItem = {
-  id: string;
-  name: string;
-  description?: string;
-  check: boolean;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -32,50 +25,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-async function getTodoItems(todoId: string) {
-  const session = await getServerSession(authOptions);
-  const headers = {
-    Authorization: `Bearer ${session?.accessToken}`,
-  };
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/todos/${todoId}/items`,
-    {
-      headers,
-      next: {
-        tags: ['items'],
-      },
+async function getTodoItems(todoId: string): Promise<TodoItem[]> {
+  const res = await api(`/todos/${todoId}/items`, {
+    next: {
+      tags: ['items'],
     },
-  );
+  });
 
   if (!res.ok) {
     notFound();
   }
 
-  const items = (await res.json()).todo_items as TodoItem[];
-
+  const items = (await res.json()).todo_items;
   return items;
 }
 
-async function getTodo(id: string) {
-  const session = await getServerSession(authOptions);
-  const headers = {
-    Authorization: `Bearer ${session?.accessToken}`,
-  };
-
-  const resTodo = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`,
-    {
-      headers,
-    },
-  );
+async function getTodo(id: string): Promise<Todo> {
+  const resTodo = await api(`/todos/${id}`);
 
   if (!resTodo.ok) {
     notFound();
   }
 
-  const todo = (await resTodo.json()).todo as Todo;
-
+  const todo = (await resTodo.json()).todo;
   return todo;
 }
 

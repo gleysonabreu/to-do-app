@@ -1,31 +1,26 @@
 import { Separator } from '@/components/ui/separator';
 import { ProfileForm } from './profile-form';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { api } from '@/config/api';
+import { User } from '@/types/user';
 
-async function getMeData() {
-  const session = await getServerSession(authOptions);
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
+async function getMeData(): Promise<User> {
+  const res = await api('/me', {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${session?.accessToken}`,
-    },
     next: {
       tags: ['profile'],
     },
   });
 
   if (!res.ok) {
-    throw new Error('failed to fetch data');
+    throw new Error('failed to fetch user data');
   }
 
   const responseBody = await res.json();
 
   return {
-    id: responseBody.user.id,
-    username: responseBody.user.username,
-    isPublic: responseBody.user.isPublic,
+    ...responseBody.user,
+    firstName: responseBody.user.first_name,
+    lastName: responseBody.user.last_name,
   };
 }
 

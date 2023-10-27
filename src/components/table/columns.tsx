@@ -4,9 +4,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { TodoItem } from '@/app/(home)/dashboard/todos/[id]/page';
 import { DataTableRowActions } from './data-table-row-actions';
 import { DataCheck } from './data-check';
+import { TodoItem } from '@/types/todo-item';
 
 export const columns: ColumnDef<TodoItem>[] = [
   {

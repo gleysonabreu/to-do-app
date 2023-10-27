@@ -24,9 +24,9 @@ import {
   FormMessage,
 } from './ui/form';
 import { Loader2 } from 'lucide-react';
-import { fetchWithAuth } from '@/lib/fetcher';
 import { revalidateTagHelper } from '@/app/actions';
 import { useToast } from './ui/use-toast';
+import { api } from '@/config/api';
 
 const schema = z.object({
   title: z.string().min(3).max(20),
@@ -62,12 +62,15 @@ export function DialogNewTodo({ children }: { children: ReactNode }) {
 
   const handleNewTodo: SubmitHandler<FormNewTodoSchemaType> = async (data) => {
     try {
-      const res = await fetchWithAuth('/todos', {
+      const res = await api('/todos', {
         method: 'POST',
         body: JSON.stringify({
           title: data.title,
           description: data.description,
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (res.status === 201) {

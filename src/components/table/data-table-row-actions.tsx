@@ -23,11 +23,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../ui/alert-dialog';
-import { TodoItem } from '@/app/(home)/dashboard/todos/[id]/page';
 import { useState } from 'react';
-import { fetchWithAuth } from '@/lib/fetcher';
 import { useToast } from '../ui/use-toast';
 import { revalidateTagHelper } from '@/app/actions';
+import { TodoItem } from '@/types/todo-item';
+import { api } from '@/config/api';
 
 interface DataTableRowActionsProps {
   row: Row<TodoItem>;
@@ -42,7 +42,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   async function handleDeleteTaskItem() {
     try {
       setIsLoadingDelete(true);
-      const res = await fetchWithAuth(`/items/${task.id}`, {
+      const res = await api(`/items/${task.id}`, {
         method: 'DELETE',
       });
 

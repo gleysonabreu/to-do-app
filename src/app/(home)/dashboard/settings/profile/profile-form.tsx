@@ -18,11 +18,11 @@ import { Input } from '@/components/ui/input';
 
 import { toast } from '@/components/ui/use-toast';
 import { Switch } from '@/components/ui/switch';
-import { User } from '../page';
 import { Loader2 } from 'lucide-react';
-import { fetchWithAuth } from '@/lib/fetcher';
 import { useSession } from 'next-auth/react';
 import { revalidateTagHelper } from '@/app/actions';
+import { User } from '@/types/user';
+import { api } from '@/config/api';
 
 const profileFormSchema = z.object({
   username: z
@@ -58,11 +58,14 @@ export function ProfileForm({ user }: ProfileFormProps) {
 
   async function onSubmit(data: ProfileFormValues) {
     try {
-      const res = await fetchWithAuth('/users/profile', {
+      const res = await api('/users/profile', {
         method: 'PUT',
         body: JSON.stringify({
           ...data,
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (res.status === 204) {

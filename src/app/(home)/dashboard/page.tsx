@@ -1,31 +1,26 @@
 import { TodoItem } from '@/components/to-do-item';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { CircleOff } from 'lucide-react';
+import { api } from '@/config/api';
+import { Todo } from '@/types/todo';
 
-export type Todo = {
-  id: string;
-  title: string;
-  description?: string;
-  amount: number;
-  completed: number;
-};
-
-export default async function Dashboard() {
-  const session = await getServerSession(authOptions);
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`, {
+async function getTodos(): Promise<Todo[]> {
+  const res = await api('/todos', {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${session?.accessToken}`,
-    },
     next: {
       tags: ['todos'],
     },
   });
 
+  if (!res.ok) {
+    throw new Error('failed to fetch data');
+  }
+
   const responseBody = await res.json();
-  const todos = responseBody.todos as Todo[];
+  return responseBody.todos;
+}
+
+export default async function Dashboard() {
+  const todos = await getTodos();
 
   return (
     <main className="flex flex-col flex-1 p-6 w-full">

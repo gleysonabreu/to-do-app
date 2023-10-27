@@ -21,10 +21,10 @@ import {
 } from '@/components/ui/form';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { fetchWithAuth } from '@/lib/fetcher';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Logo } from '@/components/logo';
+import { api } from '@/config/api';
 
 const formSignUpSchema = z.object({
   email: z.string().email(),
@@ -84,12 +84,15 @@ export default function SignUp() {
     data,
   ) => {
     try {
-      const res = await fetchWithAuth('/users', {
+      const res = await api('/users', {
         method: 'POST',
         body: JSON.stringify({
           ...data,
           username: data.username.toLowerCase(),
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (res.status === 201) {

@@ -31,7 +31,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useEffect, useState } from 'react';
-import { TodoItem } from '@/app/(home)/dashboard/todos/[id]/page';
+import { TodoItem } from '@/types/todo-item';
 
 interface DataTableProps<TValue> {
   columns: ColumnDef<TodoItem, TValue>[];

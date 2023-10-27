@@ -14,10 +14,10 @@ import {
 } from './ui/alert-dialog';
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
-import { fetchWithAuth } from '@/lib/fetcher';
 import { useToast } from './ui/use-toast';
 import { revalidateTagHelper } from '@/app/actions';
 import { useRouter } from 'next/navigation';
+import { api } from '@/config/api';
 
 type Props = {
   id: string;
@@ -32,7 +32,7 @@ export function RemoveTodo({ id }: Props) {
   async function handleDeleteTodo() {
     try {
       setIsLoadingRemoveTodo(true);
-      const res = await fetchWithAuth(`/todos/${id}`, {
+      const res = await api(`/todos/${id}`, {
         method: 'DELETE',
       });
 

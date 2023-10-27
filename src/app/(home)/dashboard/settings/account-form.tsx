@@ -17,11 +17,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
-import { User } from './page';
 import { Loader2 } from 'lucide-react';
-import { fetchWithAuth } from '@/lib/fetcher';
 import { useSession } from 'next-auth/react';
 import { revalidateTagHelper } from '@/app/actions';
+import { User } from '@/types/user';
+import { api } from '@/config/api';
 
 const accountFormSchema = z.object({
   firstName: z
@@ -69,11 +69,14 @@ export function AccountForm({ user }: AccountFormProps) {
 
   async function handleUpdateData(data: AccountFormValues) {
     try {
-      const res = await fetchWithAuth('/users', {
+      const res = await api('/users', {
         method: 'PUT',
         body: JSON.stringify({
           ...data,
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (res.status === 204) {
