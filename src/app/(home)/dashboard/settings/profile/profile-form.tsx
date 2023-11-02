@@ -23,6 +23,7 @@ import { useSession } from 'next-auth/react';
 import { revalidateTagHelper } from '@/app/actions';
 import { User } from '@/types/user';
 import { api } from '@/config/api';
+import { CopyURL } from '@/components/copy-url';
 
 const profileFormSchema = z.object({
   username: z
@@ -44,7 +45,6 @@ type ProfileFormProps = {
 
 export function ProfileForm({ user }: ProfileFormProps) {
   const { data: session, update } = useSession();
-  console.log(user);
   const defaultValues: Partial<ProfileFormValues> = {
     is_public: user.isPublic,
     username: user.username,
@@ -136,6 +136,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
                 This is your public display name. It can be your real name or a
                 pseudonym.
               </FormDescription>
+              <CopyURL username={user.username as string} />
               <FormMessage />
             </FormItem>
           )}
