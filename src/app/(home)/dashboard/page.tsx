@@ -44,6 +44,7 @@ export default async function Dashboard() {
               description={todo.description}
               amount={todo.amount}
               completed={todo.completed}
+              url={`/dashboard/todos/${todo.id}`}
             />
           ))}
         </div>
