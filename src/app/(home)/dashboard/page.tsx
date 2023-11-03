@@ -1,7 +1,7 @@
 import { TodoItem } from '@/components/to-do-item';
-import { CircleOff } from 'lucide-react';
 import { api } from '@/config/api';
 import { Todo } from '@/types/todo';
+import { NoTodos } from './todos/components/no-to-dos';
 
 async function getTodos(): Promise<Todo[]> {
   const res = await api('/todos', {
@@ -25,15 +25,7 @@ export default async function Dashboard() {
   return (
     <main className="flex flex-col flex-1 p-6 w-full">
       {todos.length === 0 ? (
-        <div className="flex flex-1 items-center justify-center">
-          <div className="flex items-center flex-col gap-2 max-w-md w-full p-10 border border-dashed rounded-lg border-border">
-            <CircleOff size={30} />
-            <h1 className="font-bold text-lg">No to-dos</h1>
-            <span className="text-muted-foreground text-sm">
-              Get started by creating a new to-do.
-            </span>
-          </div>
-        </div>
+        <NoTodos />
       ) : (
         <div className="grid justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {todos.reverse().map((todo) => (
