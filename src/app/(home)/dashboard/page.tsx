@@ -2,9 +2,12 @@ import { TodoItem } from '@/components/to-do-item';
 import { api } from '@/config/api';
 import { Todo } from '@/types/todo';
 import { NoTodos } from './todos/components/no-to-dos';
+import { getSession } from '@/lib/get-session';
 
 async function getTodos(): Promise<Todo[]> {
-  const res = await api('/todos', {
+  const session = await getSession();
+
+  const res = await api(`/users/${session?.user.id}/todos`, {
     method: 'GET',
     next: {
       tags: ['todos'],
