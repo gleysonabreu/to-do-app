@@ -25,7 +25,11 @@ export async function TabTasks({ userId, username }: TabTasksProps) {
       ) : (
         <div className="grid justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {todos.map((todo) => (
-            <TodoItem key={todo.id} {...todo} url={`${username}/todo/any-id`} />
+            <TodoItem
+              key={todo.id}
+              {...todo}
+              url={`${username}/todo/${todo.id}`}
+            />
           ))}
         </div>
       )}
