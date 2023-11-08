@@ -15,6 +15,7 @@ import { DialogNewTodo } from './dialog-new-todo';
 import { ToggleTheme } from './toggle-theme';
 import { Logo } from './logo';
 import { UserNav } from './user-nav';
+import { DialogSearch } from './dialog-search';
 
 export function Header() {
   const { data: session } = useSession();
@@ -23,10 +24,14 @@ export function Header() {
   return (
     <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b w-full h-16 sticky top-0 z-50 lg:h-20">
       <div className="h-full relative">
-        <div className="mx-8 lg:mx-20 h-full flex items-center justify-between">
+        <div className="mx-8 gap-5 lg:mx-20 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center h-full w-28">
             <Logo />
           </Link>
+
+          <div className="w-full max-w-lg">
+            <DialogSearch />
+          </div>
 
           <div className="flex items-center gap-1">
             {session ? (
