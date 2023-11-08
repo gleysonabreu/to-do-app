@@ -14,8 +14,12 @@ export async function generateMetadata({
 
   const user = await getUserByUsername(username);
 
+  const title = user?.isPublic
+    ? `Profile - ${user?.firstName} ${user?.lastName}(@${user?.username})`
+    : '404 - This page could not be found';
+
   return {
-    title: `Profile - ${user?.firstName} ${user?.lastName}(@${user?.username})`,
+    title,
   };
 }
 
