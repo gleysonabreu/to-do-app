@@ -25,7 +25,7 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
 
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
