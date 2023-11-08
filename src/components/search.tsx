@@ -75,7 +75,7 @@ export function Search() {
             </div>
           </CommandPrimitive.Loading>
         )}
-        {users && (
+        {users && users.length > 0 && (
           <CommandGroup heading="Users">
             {users.map((user) => (
               <CommandItem
